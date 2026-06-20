@@ -1,39 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Kings of the Board Dashboard</title>
+  <meta charset="UTF-8" />
+  <title>Kings of the Board — Live Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --bg-main: #020817;
+      --bg-panel: #050f24;
+      --bg-panel-alt: #07152f;
+      --accent: #4fd1ff;
+      --accent-soft: #2b9fd8;
+      --accent-strong: #7be8ff;
+      --text-main: #e9f8ff;
+      --text-muted: #8fa6c6;
+      --locked: #1b2740;
+      --achieved: #34d399;
+      --pending: #facc15;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: #0d1b2a;
-      color: #e0f7ff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
-    #members {
-      font-size: 40px;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>Kings of the Board — Live Dashboard</h1>
-  <div id="members">Loading...</div>
-
-  <script>
-    async function loadClubData() {
-      const url = "https://api.chess.com/pub/club/kings-of-the-board-3";
-      const response = await fetch(url);
-      const data = await response.json();
-
-      document.getElementById("members").innerText =
-        data.members_count + " members";
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #0b1736 0, #020817 55%, #00010a 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: var(--text-main);
+      padding: 16px;
     }
 
-    loadClubData();
-  </script>
+    .shell {
+      width: 100%;
+      max-width: 1100px;
+      background: radial-gradient(circle at top left, #102a43 0, #050b18 40%, #020817 100%);
+      border-radius: 24px;
+      padding: 20px;
+      border: 1px solid rgba(79, 209, 255, 0.25);
+      box-shadow:
+        0 0 40px rgba(79, 209, 255, 0.25),
+        0 0 120px rgba(0, 0, 0, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
 
-</body>
-</html>
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(79, 209, 255, 0.18), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(123, 232, 255, 0.12), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .crown {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 0%, #ffe066 0, #facc15 40%, #f97316 100%);
+      box-shadow:
+        0 0 18px rgba(250, 204, 21, 0.7),
+        0 0 40px rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .title-text {
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text-main);
+      text-shadow:
+        0 0 10px rgba(79, 209, 255, 0.9),
+        0 0 24px rgba(15, 23, 42, 0.9);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .meta span {
+      display: block;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(79, 209, 255, 0.2), rgba(123, 232, 255, 0.05));
+      border: 1px solid rgba(79, 209, 255, 0.4);
+      font-size: 11px;
+      color: var(--accent
