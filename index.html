@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kings of the Board Dashboard</title>
+  <style>
+    body {
+      background: #0d1b2a;
+      color: #e0f7ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    #members {
+      font-size: 40px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kings of the Board — Live Dashboard</h1>
+  <div id="members">Loading...</div>
+
+  <script>
+    async function loadClubData() {
+      const url = "https://api.chess.com/pub/club/kings-of-the-board-3";
+      const response = await fetch(url);
+      const data = await response.json();
+
+      document.getElementById("members").innerText =
+        data.members_count + " members";
+    }
+
+    loadClubData();
+  </script>
+
+</body>
+</html>
